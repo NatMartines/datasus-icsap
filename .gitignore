@@ -1,0 +1,8 @@
+.venv/
+target/
+dbt_packages/
+logs/
+data/
+.env
+profiles.yml
+projeto-datasus-icsap.html
