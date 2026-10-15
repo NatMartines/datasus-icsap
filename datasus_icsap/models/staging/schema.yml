@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_internacoes
+    description: Internações do SIH/SUS com nomes claros e tipos convertidos. Uma linha por AIH por mês.
+    columns:
+      - name: num_aih
+        description: Número da AIH. Repete apenas no tipo 5 (longa permanência).
+        tests:
+          - not_null
+      - name: tipo_aih
+        description: 1 = normal, 5 = longa permanência.
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['1', '5']
+      - name: data_internacao
+        description: Data de entrada no hospital.
+        tests:
+          - not_null
+      - name: cod_cid_principal
+        description: Diagnóstico principal (CID-10).
+        tests:
+          - not_null
+      - name: valor_total
+        description: Valor total pago pela AIH, em R$.
+        tests:
+          - not_null

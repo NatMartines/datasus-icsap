@@ -63,3 +63,16 @@ FROM datasus_raw.internacoes
 WHERE mes = 1
 GROUP BY 1, 2, 3
 order by cod_idade asc;
+
+
+
+--7. Regra do ident: quantas linhas e AIHs existem de cada tipo?
+
+select tipo_aih,
+       count(*)                   as linhas,
+       count(distinct num_aih)    as aihs_distintas,
+       sum(valor_total)           as total_pago
+from datasus_staging.stg_internacoes
+group by tipo_aih
+order by tipo_aih;
+-- Regra: contar só tipo_aih = '1'. Tipo 5 repete a AIH todo mês.
