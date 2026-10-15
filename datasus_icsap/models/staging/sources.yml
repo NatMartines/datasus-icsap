@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: datasus_raw
+    description: Dados brutos do DATASUS e IBGE, sem tratamento.
+    tables:
+      - name: internacoes
+        description: Uma linha por AIH paga pelo SUS em SP, 2024 (SIH/SUS RD).
+      - name: municipios
+        description: Municípios do Brasil (IBGE).
+      - name: hospitais
+        description: Estabelecimentos de saúde com leitos (CNES).
+      - name: doencas
+        description: Códigos CID-10 (subcategorias) com nome da doença.
+      - name: doencas_categorias
+        description: Categoria CID-10 de cada subcategoria.
+      - name: doencas_grupos
+        description: Grupo CID-10 de cada subcategoria.
+      - name: doencas_capitulos
+        description: Capítulo CID-10 de cada subcategoria.
+      - name: internacoes_evitaveis_lista
+        description: Lista oficial ICSAP (Portaria SAS/MS 221/2008) de CIDs evitáveis.
