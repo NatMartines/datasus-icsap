@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: dim_municipio
+    description: Um município por linha (IBGE).
+    columns:
+      - name: cod_municipio
+        tests: [unique, not_null]
+
+  - name: dim_hospital
+    description: Um hospital por linha (CNES).
+    columns:
+      - name: cod_hospital
+        tests: [unique, not_null]
+
+  - name: dim_doenca
+    description: Uma doença (CID-10) por linha, com categoria, grupo, capítulo e indicação de evitável.
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
