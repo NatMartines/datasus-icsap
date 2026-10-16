@@ -38,3 +38,5 @@ models:
     marts:
       +materialized: table
       +schema: datasus_marts
+  elementary:
+    +schema: datasus_elementary

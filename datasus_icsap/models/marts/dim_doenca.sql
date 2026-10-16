@@ -23,11 +23,24 @@ select
     g.nome_grupo,
     cap.num_capitulo,
     cap.nome_capitulo,
-    case when e.cod_cid is not null then 1 else 0 end   as eh_evitavel,
+
+    case when e.cod_cid is not null then 1 
+         else 0 
+    end as eh_evitavel,
+    
     e.num_grupo_icsap,
     e.nome_grupo_icsap
+
 from doencas d
-left join categorias c   on c.cod_cid   = d.cod_cid
-left join grupos     g   on g.cod_cid   = d.cod_cid
-left join capitulos  cap on cap.cod_cid = d.cod_cid
-left join evitaveis  e   on e.cod_cid   = d.cod_cid
+
+left join categorias c   
+   on c.cod_cid = d.cod_cid
+
+left join grupos g 
+   on g.cod_cid = d.cod_cid
+
+left join capitulos cap 
+   on cap.cod_cid = d.cod_cid
+
+left join evitaveis e   
+   on e.cod_cid   = d.cod_cid
