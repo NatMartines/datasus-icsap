@@ -27,3 +27,38 @@ models:
         description: Valor total pago pela AIH, em R$.
         tests:
           - not_null
+            
+  - name: stg_municipios
+    columns:
+      - name: cod_municipio
+        tests: [unique, not_null]
+
+  - name: stg_hospitais
+    columns:
+      - name: cod_hospital
+        tests: [unique, not_null]
+
+  - name: stg_doencas
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
+
+  - name: stg_doencas_categorias
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
+
+  - name: stg_doencas_grupos
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
+
+  - name: stg_doencas_capitulos
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
+
+  - name: stg_internacoes_evitaveis
+    columns:
+      - name: cod_cid
+        tests: [unique, not_null]
