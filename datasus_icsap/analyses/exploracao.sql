@@ -76,3 +76,15 @@ from datasus_staging.stg_internacoes
 group by tipo_aih
 order by tipo_aih;
 -- Regra: contar só tipo_aih = '1'. Tipo 5 repete a AIH todo mês.
+
+
+--8. Qual o percentual de internações evitáveis em SP em 2024, e quanto custaram?
+
+select
+    count(*)                                                    as total_internacoes,
+    sum(eh_evitavel)                                            as evitaveis,
+    round(100.0 * sum(eh_evitavel) / count(*), 2)               as pct_evitaveis,
+    sum(valor_total)                                            as valor_total,
+    sum(case when eh_evitavel = 1 then valor_total end)         as valor_evitaveis
+from datasus_staging.int_internacoes_enriquecidas
+where tipo_aih = '1';

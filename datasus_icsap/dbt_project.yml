@@ -32,6 +32,9 @@ models:
     staging:
       +materialized: view
       +schema: datasus_staging
+    intermediate:
+      +materialized: view
+      +schema: datasus_staging
     marts:
       +materialized: table
       +schema: datasus_marts
