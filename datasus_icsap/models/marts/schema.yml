@@ -2,35 +2,62 @@ version: 2
 
 models:
   - name: dim_municipio
-    description: Um município por linha (IBGE).
+    description: Um município do Brasil por linha (IBGE). Usada para filtrar pelo local de residência do paciente.
     columns:
       - name: cod_municipio
+        description: Código IBGE com 6 dígitos (padrão DATASUS).
         tests: [unique, not_null]
+      - name: nome_municipio
+        description: Nome do município.
+      - name: uf_sigla
+        description: Sigla do estado.
+      - name: regiao_imediata
+        description: Região geográfica imediata (IBGE).
 
   - name: dim_hospital
-    description: Um hospital por linha (CNES).
+    description: Um estabelecimento com leitos por linha (CNES).
     columns:
       - name: cod_hospital
+        description: Código CNES do estabelecimento.
         tests: [unique, not_null]
+      - name: nome_hospital
+        description: Nome fantasia do hospital.
+      - name: leitos_sus
+        description: Leitos disponíveis para o SUS.
 
   - name: dim_doenca
-    description: Uma doença (CID-10) por linha, com categoria, grupo, capítulo e indicação de evitável.
+    description: Uma doença por linha. Inclui subcategorias CID-10 (4 caracteres) e categorias (3 caracteres), com capítulo, grupo e indicação ICSAP.
     columns:
       - name: cod_cid
+        description: Código CID-10 (ex. J189 ou J18).
         tests: [unique, not_null]
+      - name: nome_doenca
+        description: Nome da doença.
+      - name: eh_evitavel
+        description: 1 se o CID está na lista oficial ICSAP (Portaria SAS/MS 221/2008), 0 se não.
+        tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+                quote: false
+      - name: nome_grupo_icsap
+        description: Grupo de condição sensível à atenção primária (ex. Pneumonias bacterianas).
 
   - name: fct_internacoes
-    description: Uma linha por internação (AIH tipo 1), SP 2024.
+    description: Uma linha por internação (AIH tipo 1), SP 2024. Validada contra o TabNet com diferença zero.
     columns:
       - name: num_aih
+        description: Número da AIH (Autorização de Internação Hospitalar).
         tests: [unique, not_null]
       - name: cod_municipio_residencia
+        description: Município de residência do paciente.
         tests:
           - relationships:
               arguments:
                 to: ref('dim_municipio')
                 field: cod_municipio
       - name: cod_hospital
+        description: CNES do hospital. Cerca de 3% das internações têm CNES fora da tabela de hospitais com leitos (limitação da fonte).
         tests:
           - relationships:
               arguments:
@@ -47,3 +74,24 @@ models:
                 field: cod_cid
               config:
                 severity: warn
+      - name: sexo
+        description: 1 = masculino, 3 = feminino.
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['1', '3']
+      - name: valor_total
+        description: Valor total pago pelo SUS pela internação, em R$.
+        tests: [not_null]
+      - name: eh_evitavel
+        description: 1 se a internação é evitável (ICSAP), 0 se não.
+      - name: obito
+        description: 1 se o paciente morreu durante a internação.
+
+  - name: mart_evitaveis_resumo
+    description: Resumo para o dashboard. Uma linha por mês, município, hospital e grupo evitável. A soma bate com a fct_internacoes (teste assert_resumo_bate_com_fato).
+    columns:
+      - name: internacoes
+        description: Quantidade de internações.
+      - name: valor_total
+        description: Soma do valor pago, em R$.
