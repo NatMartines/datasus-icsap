@@ -18,3 +18,32 @@ models:
     columns:
       - name: cod_cid
         tests: [unique, not_null]
+
+  - name: fct_internacoes
+    description: Uma linha por internação (AIH tipo 1), SP 2024.
+    columns:
+      - name: num_aih
+        tests: [unique, not_null]
+      - name: cod_municipio_residencia
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_municipio')
+                field: cod_municipio
+      - name: cod_hospital
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_hospital')
+                field: cod_hospital
+              config:
+                severity: warn
+      - name: cod_cid_principal
+        description: CID-10 principal. 121 internações usam códigos novos (N18.2-N18.5, U09, U10) ausentes da tabela CID do DATASUS.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_doenca')
+                field: cod_cid
+              config:
+                severity: warn
