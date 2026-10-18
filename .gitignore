@@ -6,3 +6,4 @@ data/
 .env
 profiles.yml
 projeto-datasus-icsap.html
+*.pbix
