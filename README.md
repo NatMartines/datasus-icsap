@@ -45,7 +45,7 @@ DATASUS (SIH/SUS RD-SP)
 | Qualidade | Elementary | Relatório de testes e lineage |
 | Visualização | Power BI | Dashboard em formato `.pbip` (versionado no Git) |
 
-### Modelagem (esquema estrela)
+### Star Schema
 
 - **Fato:** `fct_internacoes` (uma linha por AIH, apenas tipo 1)
 - **Dimensões:** `dim_municipio`, `dim_hospital`, `dim_doenca`, `dim_data`
@@ -80,6 +80,40 @@ DATASUS (SIH/SUS RD-SP)
 - **121** internações usam CIDs novos (ex.: N18.2–N18.5, U09, U10) que não estão na tabela de doenças (teste em `warn`).
 - Partos não foram excluídos do denominador.
 - Escopo: estado de São Paulo, competências de 2024.
+
+---
+
+## Ingestão
+
+A ingestão é feita por scripts Python em `ingestion/`, executados **nesta ordem**:
+
+| # | Script | O que faz |
+|---|---|---|
+| 1 | `ingest_sih.py` | Baixa os arquivos `.dbc` do SIH/SUS (AIH Reduzida) do FTP público do DATASUS, converte para Parquet e envia para o S3 |
+| 2 | `create_raw_table.py` | Cria a tabela `datasus_raw.internacoes` no Athena, com *partition projection* (ano/mês/UF) |
+| 3 | `ingest_referencias.py` | Baixa as tabelas de referência (municípios do IBGE, CID-10, hospitais e leitos do OpenDataSUS, lista ICSAP) e cria as tabelas no Athena |
+| 4 | `simplificar_tabelas.py` | Deixa as referências com uma linha por código, prontas para JOIN simples |
+
+```bash
+uv run python ingestion/ingest_sih.py --uf SP --ano 2024
+uv run python ingestion/create_raw_table.py
+uv run python ingestion/ingest_referencias.py
+uv run python ingestion/simplificar_tabelas.py
+```
+
+**Organização no S3:**
+
+```
+s3://<bucket>/
+├── landing/sih_rd/ano=AAAA/mes=MM/uf=UF/   # .dbc original do DATASUS
+└── raw/
+    ├── sih_rd/ano=AAAA/mes=MM/uf=UF/       # Parquet (todas as colunas como texto)
+    └── ref_*/                              # tabelas de referência
+```
+
+- **Idempotente:** se o Parquet do mês já existe no S3, o mês é pulado (use `--force` para reprocessar).
+- **Tudo como texto na raw:** a tipagem fica a cargo da camada de staging do dbt.
+- **Partition projection:** o Athena encontra as partições pelo caminho no S3, sem crawler e sem `MSCK REPAIR`.
 
 ---
 
