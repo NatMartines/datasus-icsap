@@ -88,6 +88,13 @@ models:
       - name: obito
         description: 1 se o paciente morreu durante a internação.
 
+      - name: data_internacao
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_data')
+                field: data
+
   - name: mart_evitaveis_resumo
     description: Resumo para o dashboard. Uma linha por mês, município, hospital e grupo evitável. A soma bate com a fct_internacoes (teste assert_resumo_bate_com_fato).
     columns:
