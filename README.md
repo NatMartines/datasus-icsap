@@ -70,6 +70,7 @@ DATASUS (SIH/SUS RD-SP)
 - **Testes dbt:** `unique`, `not_null`, `accepted_values`, `relationships` e testes singulares (ex.: a soma do resumo bate com a fato; valores não negativos).
 - **Validação externa:** os totais de AIH aprovadas, internações e valor total foram conferidos com o **TabNet/DATASUS**, com **diferença zero**. Detalhes em [`analyses/validacao_tabnet.md`](datasus_icsap/analyses/validacao_tabnet.md).
 - **Relatório Elementary:** [natmartines.github.io/datasus-icsap/elementary](https://natmartines.github.io/datasus-icsap/elementary/)
+- **Documentação com IA:** usei o Claude para acelerar a documentação das tabelas e revisei cada descrição contra o dicionário do DATASUS. A skill usada está em [`.claude/skills/documentar-tabelas-dbt`](.claude/skills/documentar-tabelas-dbt/SKILL.md).
 
 ---
 
