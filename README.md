@@ -4,7 +4,8 @@ Projeto de dados de ponta a ponta sobre **internações por condições sensíve
 
 > **Pergunta:** quantas internações do SUS em SP poderiam ter sido evitadas com uma atenção básica eficiente, quanto elas custaram e onde se concentram?
 
-![Dashboard](docs/dashboard.png)
+
+![Interação com os filtros](docs/dashboard.gif)
 
 ---
 
