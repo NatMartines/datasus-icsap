@@ -95,3 +95,9 @@ models:
         description: Quantidade de internações.
       - name: valor_total
         description: Soma do valor pago, em R$.
+
+  - name: dim_data
+    description: Calendário diário. Liga-se à fct_internacoes pela data_internacao.
+    columns:
+      - name: data
+        tests: [unique, not_null]
