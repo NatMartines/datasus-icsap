@@ -1,0 +1,102 @@
+table dim_data
+	lineageTag: 7534dd43-9238-49d2-847d-93ef31d4b991
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 30e48c6d-05e8-4974-8b63-882ca192abfb
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: e7a707dc-1580-494c-9f60-4cf6a3ce8502
+		summarizeBy: none
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = User
+
+	column trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: cb64848e-a3d7-4aab-b88e-9df8bcc07d29
+		summarizeBy: none
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = User
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d0b2d81-4af3-4c35-8506-dafddabb662b
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = User
+
+	column nome_mes
+		dataType: string
+		lineageTag: 99d19f6c-e0fe-4fe6-811d-f287b450630c
+		summarizeBy: none
+		sourceColumn: nome_mes
+		sortByColumn: mes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 9da843fd-9c01-4a35-9a3b-4b96f66237fe
+		summarizeBy: none
+		sourceColumn: dia
+
+		annotation SummarizationSetBy = User
+
+	column dia_semana
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a76f520-47ad-4acd-93df-d9d620de3aa4
+		summarizeBy: none
+		sourceColumn: dia_semana
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column nome_dia_semana
+		dataType: string
+		lineageTag: 32942db7-f849-430b-b5b6-0cb5d7415034
+		summarizeBy: none
+		sourceColumn: nome_dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column eh_fim_de_semana
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e0197d83-2433-448a-8e7a-c13cef2d39fe
+		summarizeBy: none
+		sourceColumn: eh_fim_de_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_data = m
+		mode: import
+		source =
+				let
+				    Fonte = Odbc.DataSource("dsn=datasus-athena", [HierarchicalNavigation=true]),
+				    AwsDataCatalog_Database = Fonte{[Name="AwsDataCatalog",Kind="Database"]}[Data],
+				    datasus_marts_Schema = AwsDataCatalog_Database{[Name="datasus_marts",Kind="Schema"]}[Data],
+				    dim_data_Table = datasus_marts_Schema{[Name="dim_data",Kind="Table"]}[Data]
+				in
+				    dim_data_Table
+

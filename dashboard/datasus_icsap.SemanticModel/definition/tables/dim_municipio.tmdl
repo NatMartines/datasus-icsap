@@ -1,0 +1,64 @@
+table dim_municipio
+	lineageTag: 16cf60f0-6619-492b-9d22-bfae8f0751ea
+
+	column cod_municipio
+		dataType: string
+		lineageTag: 5cc20e4e-f5e0-4e27-bf20-e52f44611687
+		summarizeBy: none
+		sourceColumn: cod_municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_municipio
+		dataType: string
+		lineageTag: b0d73157-4dd9-4eab-87b8-a966a0a87cbe
+		summarizeBy: none
+		sourceColumn: nome_municipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf_sigla
+		dataType: string
+		lineageTag: 34e109e3-3e05-4076-a9d6-bc8180efab1f
+		summarizeBy: none
+		sourceColumn: uf_sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_nome
+		dataType: string
+		lineageTag: cf415de3-4e9a-40c2-bd91-71b80ee6f5c1
+		summarizeBy: none
+		sourceColumn: regiao_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_intermediaria
+		dataType: string
+		lineageTag: adcc732e-330e-4cf8-9736-43b592512a1d
+		summarizeBy: none
+		sourceColumn: regiao_intermediaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_imediata
+		dataType: string
+		lineageTag: 983a79a0-7f56-4fc7-963f-596d8c9262a9
+		summarizeBy: none
+		sourceColumn: regiao_imediata
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_municipio = m
+		mode: import
+		source =
+				let
+				    Fonte = AmazonAthena.Databases("datasus-athena", null, []),
+				    AwsDataCatalog_Database = Fonte{[Name="AwsDataCatalog",Kind="Database"]}[Data],
+				    datasus_marts_Schema = AwsDataCatalog_Database{[Name="datasus_marts",Kind="Schema"]}[Data],
+				    dim_municipio_Table = datasus_marts_Schema{[Name="dim_municipio",Kind="Table"]}[Data]
+				in
+				    dim_municipio_Table
+
+	annotation PBI_ResultType = Table
+

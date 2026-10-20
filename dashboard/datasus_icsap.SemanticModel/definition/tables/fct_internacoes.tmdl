@@ -1,0 +1,198 @@
+table fct_internacoes
+	lineageTag: 715a56a1-a4bd-4878-b49c-39fae0f135c2
+
+	measure Internações = COUNTROWS(fct_internacoes)
+		formatString: 0
+		lineageTag: 6f0ba69f-356b-4e0b-b3dc-51d45016b103
+
+	measure 'Valor Total' = SUM(fct_internacoes[valor_total])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: d007ae04-4c2e-48f7-b554-526b9ae38b01
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure 'Internações Evitáveis' = CALCULATE([Internações], fct_internacoes[eh_evitavel] = 1)
+		formatString: 0
+		lineageTag: fa46b637-112b-46d1-924d-a3d795154f00
+
+	measure '% Evitáveis' = DIVIDE([Internações Evitáveis], [Internações])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 20559475-bd34-4da9-94ee-61de256f0ecb
+
+	measure 'Valor Evitável' = CALCULATE([Valor Total], fct_internacoes[eh_evitavel] = 1)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: aa7b7620-165f-49bc-a111-68bd413691cc
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column num_aih
+		dataType: string
+		lineageTag: 24d3f924-bfc3-487d-9352-cb8018480a28
+		summarizeBy: none
+		sourceColumn: num_aih
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_municipio_residencia
+		dataType: string
+		lineageTag: 66b2859b-6233-415c-8737-a959915ede75
+		summarizeBy: none
+		sourceColumn: cod_municipio_residencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_hospital
+		dataType: string
+		lineageTag: f72c2d9d-c3ee-4997-b2d9-f6b12761ba8f
+		summarizeBy: none
+		sourceColumn: cod_hospital
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_cid_principal
+		dataType: string
+		lineageTag: 07e55860-7134-43e7-80c7-e8b9bdcac0f6
+		summarizeBy: none
+		sourceColumn: cod_cid_principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_internacao
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 821ad94d-8fa6-414b-aa67-7a5ff2bc8950
+		summarizeBy: none
+		sourceColumn: data_internacao
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a3cde03-0886-40ee-978d-955a4f21b4f6
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: d19e59e1-6f4d-42a4-a76e-c19283a52159
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column sexo
+		dataType: string
+		lineageTag: 9adb4f14-2497-4732-b38a-bfef5c430aca
+		summarizeBy: none
+		sourceColumn: sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column raca_cor
+		dataType: string
+		lineageTag: c51263ee-4abf-4d6d-893e-80c76e9c54c5
+		summarizeBy: none
+		sourceColumn: raca_cor
+
+		annotation SummarizationSetBy = Automatic
+
+	column faixa_etaria
+		dataType: string
+		lineageTag: e1de6e50-b2cd-465e-8371-17abd9688111
+		summarizeBy: none
+		sourceColumn: faixa_etaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column idade_anos
+		dataType: int64
+		formatString: 0
+		lineageTag: b3769cf5-916d-4cd2-94bf-8348312ed04b
+		summarizeBy: sum
+		sourceColumn: idade_anos
+
+		annotation SummarizationSetBy = Automatic
+
+	column carater_internacao
+		dataType: string
+		lineageTag: 0b149429-9300-4eac-b0dd-e214af708aad
+		summarizeBy: none
+		sourceColumn: carater_internacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_total
+		dataType: double
+		lineageTag: f2cee3c3-a3f4-443e-99f9-f1d32a657573
+		summarizeBy: sum
+		sourceColumn: valor_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valor_uti
+		dataType: double
+		lineageTag: 5cc3038f-ccf6-4a39-b56b-2a6879dd47ef
+		summarizeBy: sum
+		sourceColumn: valor_uti
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column dias_permanencia
+		dataType: int64
+		formatString: 0
+		lineageTag: f4c19453-c8d9-4fdc-a74e-906358dd51d1
+		summarizeBy: sum
+		sourceColumn: dias_permanencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column dias_uti
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a4b1e19-d3b9-4755-a942-8d386ea9a7f0
+		summarizeBy: sum
+		sourceColumn: dias_uti
+
+		annotation SummarizationSetBy = Automatic
+
+	column obito
+		dataType: int64
+		formatString: 0
+		lineageTag: bec6a9c6-b405-4ac7-9938-3a105658e802
+		summarizeBy: sum
+		sourceColumn: obito
+
+		annotation SummarizationSetBy = Automatic
+
+	column eh_evitavel
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c8bf708-b757-4767-9860-341e8de53dbc
+		summarizeBy: sum
+		sourceColumn: eh_evitavel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_internacoes = m
+		mode: import
+		source =
+				let
+				    Fonte = AmazonAthena.Databases("datasus-athena", null, []),
+				    AwsDataCatalog_Database = Fonte{[Name="AwsDataCatalog",Kind="Database"]}[Data],
+				    datasus_marts_Schema = AwsDataCatalog_Database{[Name="datasus_marts",Kind="Schema"]}[Data],
+				    fct_internacoes_Table = datasus_marts_Schema{[Name="fct_internacoes",Kind="Table"]}[Data]
+				in
+				    fct_internacoes_Table
+
+	annotation PBI_ResultType = Table
+

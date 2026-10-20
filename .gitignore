@@ -8,3 +8,5 @@ profiles.yml
 projeto-datasus-icsap.html
 *.pbix
 edr_target/
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

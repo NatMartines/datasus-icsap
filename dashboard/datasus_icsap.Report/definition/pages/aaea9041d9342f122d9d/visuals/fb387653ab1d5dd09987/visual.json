@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "fb387653ab1d5dd09987",
+  "position": {
+    "x": 51.063829787234042,
+    "y": 643.40425531914889,
+    "z": 1000,
+    "height": 398.2978723404255,
+    "width": 631.73252279635255,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_internacoes"
+                    }
+                  },
+                  "Property": "faixa_etaria"
+                }
+              },
+              "queryRef": "fct_internacoes.faixa_etaria",
+              "nativeQueryRef": "faixa_etaria",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_internacoes"
+                    }
+                  },
+                  "Property": "% Evitáveis"
+                }
+              },
+              "queryRef": "fct_internacoes.% Evitáveis",
+              "nativeQueryRef": "% Evitáveis"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fct_internacoes"
+                  }
+                },
+                "Property": "% Evitáveis"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'% de internações evitáveis por faixa etária'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

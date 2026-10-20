@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "datasus_icsap"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7813b00a-d584-4d18-ab64-8e5e6c475b1f"
+  }
+}

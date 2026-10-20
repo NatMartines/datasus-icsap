@@ -1,0 +1,107 @@
+table dim_doenca
+	lineageTag: b2255df6-1b63-47b1-bcbf-4e9bcd75f659
+
+	column cod_cid
+		dataType: string
+		lineageTag: 982cf92d-3111-4ebe-a058-5fda16255f6d
+		summarizeBy: none
+		sourceColumn: cod_cid
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_doenca
+		dataType: string
+		lineageTag: 251fc02f-9ff7-4ca5-bd28-74624fd42cfe
+		summarizeBy: none
+		sourceColumn: nome_doenca
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_doenca_abrev
+		dataType: string
+		lineageTag: 570dc238-ee67-49b2-b40d-71fc6623aa00
+		summarizeBy: none
+		sourceColumn: nome_doenca_abrev
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_categoria
+		dataType: string
+		lineageTag: 7a0523fa-dee5-42b2-9a6e-2dd6281f3140
+		summarizeBy: none
+		sourceColumn: cod_categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_categoria
+		dataType: string
+		lineageTag: 4f0b21fc-0f8f-47f9-b2e2-d5bd882e58c0
+		summarizeBy: none
+		sourceColumn: nome_categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_grupo
+		dataType: string
+		lineageTag: 12d699ef-d545-4a76-86a4-64943ee7f4b1
+		summarizeBy: none
+		sourceColumn: nome_grupo
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_capitulo
+		dataType: int64
+		formatString: 0
+		lineageTag: 79f5cf72-7cfb-401b-941e-0f80220c68e9
+		summarizeBy: none
+		sourceColumn: num_capitulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_capitulo
+		dataType: string
+		lineageTag: d6a58bc7-82e0-40a3-b735-e1d957c807b4
+		summarizeBy: none
+		sourceColumn: nome_capitulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column eh_evitavel
+		dataType: int64
+		formatString: 0
+		lineageTag: e2fc2878-33af-494a-8a8b-c732910048e8
+		summarizeBy: none
+		sourceColumn: eh_evitavel
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_grupo_icsap
+		dataType: int64
+		formatString: 0
+		lineageTag: 3becd473-8421-4c7a-8736-0135229f75d3
+		summarizeBy: none
+		sourceColumn: num_grupo_icsap
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_grupo_icsap
+		dataType: string
+		lineageTag: 283208ce-08a3-499a-91e4-9691fa23af37
+		summarizeBy: none
+		sourceColumn: nome_grupo_icsap
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_doenca = m
+		mode: import
+		source =
+				let
+				    Fonte = AmazonAthena.Databases("datasus-athena", null, []),
+				    AwsDataCatalog_Database = Fonte{[Name="AwsDataCatalog",Kind="Database"]}[Data],
+				    datasus_marts_Schema = AwsDataCatalog_Database{[Name="datasus_marts",Kind="Schema"]}[Data],
+				    dim_doenca_Table = datasus_marts_Schema{[Name="dim_doenca",Kind="Table"]}[Data]
+				in
+				    dim_doenca_Table
+
+	annotation PBI_ResultType = Table
+

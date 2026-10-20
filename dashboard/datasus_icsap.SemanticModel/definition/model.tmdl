@@ -1,0 +1,23 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_doenca","dim_hospital","dim_municipio","fct_internacoes","dim_data"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_doenca
+ref table dim_hospital
+ref table dim_municipio
+ref table fct_internacoes
+ref table dim_data
+
+ref cultureInfo pt-BR
+

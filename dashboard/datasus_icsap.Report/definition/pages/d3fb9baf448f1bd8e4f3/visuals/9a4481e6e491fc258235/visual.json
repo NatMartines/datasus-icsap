@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "9a4481e6e491fc258235",
+  "position": {
+    "x": 13.300492610837438,
+    "y": 622.46305418719214,
+    "z": 5000,
+    "height": 436.25615763546796,
+    "width": 1004.1871921182266,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_doenca"
+                    }
+                  },
+                  "Property": "nome_grupo_icsap"
+                }
+              },
+              "queryRef": "dim_doenca.nome_grupo_icsap",
+              "nativeQueryRef": "nome_grupo_icsap",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_internacoes"
+                    }
+                  },
+                  "Property": "Internações Evitáveis"
+                }
+              },
+              "queryRef": "fct_internacoes.Internações Evitáveis",
+              "nativeQueryRef": "Internações Evitáveis"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fct_internacoes"
+                  }
+                },
+                "Property": "Internações Evitáveis"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Internações evitáveis por grupo de doença'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7898f1176ba802333b1c",
+  "position": {
+    "x": 26.600985221674875,
+    "y": 31.921182266009851,
+    "z": 11000,
+    "height": 45.221674876847288,
+    "width": 905.76354679802955,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Internações Evitáveis no SUS ",
+                    "textStyle": {
+                      "fontFamily": "Arial Unicode MS",
+                      "fontSize": "24pt",
+                      "color": "#ffffff"
+                    }
+                  },
+                  {
+                    "value": "· ",
+                    "textStyle": {
+                      "fontFamily": "Arial Unicode MS"
+                    }
+                  },
+                  {
+                    "value": " ",
+                    "textStyle": {
+                      "fontFamily": "Arial Unicode MS",
+                      "fontSize": "14pt",
+                      "color": "#e6e6e6"
+                    }
+                  },
+                  {
+                    "value": "São Paulo · 2024",
+                    "textStyle": {
+                      "fontFamily": "Arial Unicode MS",
+                      "fontSize": "16pt",
+                      "color": "#e6e6e6"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

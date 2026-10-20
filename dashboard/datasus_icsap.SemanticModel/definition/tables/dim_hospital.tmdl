@@ -1,0 +1,82 @@
+table dim_hospital
+	lineageTag: 4ef52e53-371b-418c-a3da-ffb13e2b4f35
+
+	column cod_hospital
+		dataType: string
+		lineageTag: 2b77361c-96a6-48cf-85d4-3d05007bc9cf
+		summarizeBy: none
+		sourceColumn: cod_hospital
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_hospital
+		dataType: string
+		lineageTag: f701a988-04e0-4283-a51a-17fc7817496e
+		summarizeBy: none
+		sourceColumn: nome_hospital
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio_hospital
+		dataType: string
+		lineageTag: 76be0c85-0a52-4dfd-9a07-c09058bd01f2
+		summarizeBy: none
+		sourceColumn: municipio_hospital
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_unidade
+		dataType: string
+		lineageTag: 75c64e46-5b60-4adb-ab5e-a934437f919b
+		summarizeBy: none
+		sourceColumn: tipo_unidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column natureza_juridica
+		dataType: string
+		lineageTag: 2f8a963b-1b67-4375-a841-c005df655c78
+		summarizeBy: none
+		sourceColumn: natureza_juridica
+
+		annotation SummarizationSetBy = Automatic
+
+	column leitos_total
+		dataType: int64
+		formatString: 0
+		lineageTag: 6590a107-db78-47ac-af4d-77492969da0d
+		summarizeBy: none
+		sourceColumn: leitos_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column leitos_sus
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f50d1f4-3748-458c-bf49-c6d2089132f1
+		summarizeBy: none
+		sourceColumn: leitos_sus
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_hospital_curto
+		dataType: string
+		lineageTag: b9af1985-42f4-48b5-970a-a88d85d8d93b
+		summarizeBy: none
+		sourceColumn: nome_hospital_curto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_hospital = m
+		mode: import
+		source =
+				let
+				    Fonte = AmazonAthena.Databases("datasus-athena", null, []),
+				    AwsDataCatalog_Database = Fonte{[Name="AwsDataCatalog",Kind="Database"]}[Data],
+				    datasus_marts_Schema = AwsDataCatalog_Database{[Name="datasus_marts",Kind="Schema"]}[Data],
+				    dim_hospital_Table = datasus_marts_Schema{[Name="dim_hospital",Kind="Table"]}[Data]
+				in
+				    dim_hospital_Table
+
+	annotation PBI_ResultType = Table
+

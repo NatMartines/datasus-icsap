@@ -1,0 +1,16 @@
+relationship AutoDetected_d1467a17-de4e-4097-b380-2ecddda77351
+	fromColumn: fct_internacoes.cod_hospital
+	toColumn: dim_hospital.cod_hospital
+
+relationship 1321df40-eb11-53d4-2c39-ce3547071466
+	fromColumn: fct_internacoes.cod_municipio_residencia
+	toColumn: dim_municipio.cod_municipio
+
+relationship 1b48a118-54cc-46fe-ce52-f83a74c4259a
+	fromColumn: fct_internacoes.cod_cid_principal
+	toColumn: dim_doenca.cod_cid
+
+relationship 59fb85fd-4605-da95-05f0-34c9255838ed
+	fromColumn: fct_internacoes.data_internacao
+	toColumn: dim_data.data
+
