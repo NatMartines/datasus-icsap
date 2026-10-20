@@ -62,3 +62,9 @@ models:
     columns:
       - name: cod_cid
         tests: [unique, not_null]
+
+  - name: stg_calendario
+    description: Um dia por linha, cobrindo os anos das internações.
+    columns:
+      - name: data
+        tests: [unique, not_null]
